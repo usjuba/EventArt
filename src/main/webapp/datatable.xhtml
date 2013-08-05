@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"	
+	template="/resources/scaffold/pageTemplate.xhtml">
+	
+	<f:metadata>
+		<f:viewParam name="page" value="#{userBean.page}"/>
+		<f:event type="preRenderView" listener="#{userBean.paginate}"/>
+	</f:metadata>
+	<ui:define name="main">
+<h:form id="form">
+                
+    <p:growl id="growl" showDetail="true"/>
+
+    <p:dataTable id="carsTable" var="car" value="#{userBean.pageItems}">
+
+        
+
+        <f:facet name="header">
+            Expand rows to see detailed information
+        </f:facet>
+
+        <p:column style="width:2%">
+            <p:rowToggler />
+        </p:column>
+
+        <p:column style="width:49%">
+            <f:facet name="header">
+                    Model
+            </f:facet>
+            <h:outputText value="#{car.username}" />
+        </p:column>
+
+        <p:column style="width:49%">
+            <f:facet name="header">
+                    Year
+            </f:facet>
+            <h:outputText value="#{car.password}" />
+        </p:column>
+
+        <p:rowExpansion>
+            <h:panelGrid id="display" columns="2" cellpadding="4" style="width:300px;"
+                            styleClass=" ui-widget-content grid">
+
+                
+
+                <h:outputText value="Model:" />
+                <h:outputText id="model" value="#{car.username}" />
+
+                <h:outputText value="Year:" />
+                <h:outputText id="year" value="#{car.password}" />
+
+                <h:outputText value="Manufacturer:" />
+                <h:outputText value="#{car.email}"/>
+
+                
+            </h:panelGrid>
+
+        </p:rowExpansion>
+    </p:dataTable>
+    <h:dataTable id="userBeanPageItems" styleClass="data-table" value="#{userBean.pageItems}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Username"/>
+					</f:facet>
+					<h:link outcome="/user/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemUsername" value="#{_item.username}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Password"/>
+					</f:facet>
+					<h:link outcome="/user/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemPassword" value="#{_item.password}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Email"/>
+					</f:facet>
+					<h:link outcome="/user/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemEmail" value="#{_item.email}"/>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+</h:form>
+</ui:define>
+</ui:composition>
+				
